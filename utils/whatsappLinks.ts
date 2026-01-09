@@ -19,7 +19,7 @@ export const WHATSAPP_MESSAGES = {
   
   victory: 'Halo! Saya tertarik dengan model Victory (Rp 22.5jt). Bisa info detail dan promo yang tersedia?',
   
-  mini: 'Halo! Saya tertarik dengan model Mini (Rp 15jt). Ada student discount? Tolong info lengkapnya.',
+  bees: 'Halo! Saya tertarik dengan model Bees (Rp 15jt). Ada student discount? Tolong info lengkapnya.',
   
   financing: 'Halo! Saya mau konsultasi tentang opsi financing dan cicilan 0%. Bisa bantu?',
   
@@ -37,7 +37,7 @@ export const WHATSAPP_LINKS = {
   edpower: getWhatsAppLink(WHATSAPP_MESSAGES.edpower),
   athena: getWhatsAppLink(WHATSAPP_MESSAGES.athena),
   victory: getWhatsAppLink(WHATSAPP_MESSAGES.victory),
-  mini: getWhatsAppLink(WHATSAPP_MESSAGES.mini),
+  bees: getWhatsAppLink(WHATSAPP_MESSAGES.bees),
   financing: getWhatsAppLink(WHATSAPP_MESSAGES.financing),
   tradeIn: getWhatsAppLink(WHATSAPP_MESSAGES.tradeIn),
   charging: getWhatsAppLink(WHATSAPP_MESSAGES.charging),

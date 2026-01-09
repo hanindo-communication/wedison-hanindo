@@ -391,7 +391,7 @@ export default function CombinedSavingsSection({ config }: CombinedSavingsSectio
                       'edpower': '/images/models/edpower.png',
                       'athena': '/images/models/athena.png',
                       'victory': '/images/models/victory.png',
-                      'mini': '/images/models/mini.png',
+                      'bees': '/images/models/bees.png',
                     }
                     const imagePath = imageMap[model.id] || '/images/product/edpower.png'
                     

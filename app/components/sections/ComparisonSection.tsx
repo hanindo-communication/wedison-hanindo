@@ -37,7 +37,7 @@ const MODEL_EFFICIENCY: Record<string, number> = {
   'athena-extended': calculateEfficiency(130, 60, 48),
   victory: calculateEfficiency(100, 45, 48),
   'victory-extended': calculateEfficiency(130, 60, 48),
-  mini: calculateEfficiency(80, 30, 48),
+  bees: calculateEfficiency(80, 30, 48),
 }
 
 // Usage presets
@@ -289,7 +289,7 @@ export default function ComparisonSection() {
                       'edpower': '/images/models/edpower.png',
                       'athena': '/images/models/athena.png',
                       'victory': '/images/models/victory.png',
-                      'mini': '/images/models/mini.png',
+                      'bees': '/images/models/bees.png',
                     }
                     const imagePath = imageMap[model.id] || '/images/product/edpower.png'
                     

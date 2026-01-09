@@ -49,8 +49,8 @@ export const MODELS = {
     range: '100 km',
     battery: '45Ah',
   },
-  mini: {
-    name: 'Mini',
+  bees: {
+    name: 'Bees',
     price: 'Rp 15,000,000',
     dp: 'Rp 3,000,000',
     monthly: 'Rp 400,000',

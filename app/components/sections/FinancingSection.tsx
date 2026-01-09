@@ -34,7 +34,7 @@ interface ModelFinancing {
 }
 
 const FINANCING_DATA: Record<string, ModelFinancing> = {
-  'mini': {
+  'bees': {
     otr: 20900000,
     discount: 5000000,
     options: [
@@ -130,8 +130,8 @@ export default function FinancingSection() {
     if (modelId === 'athena') return 'athena'
     if (modelId === 'victory') return 'victory'
     if (modelId === 'edpower') return 'edpower'
-    if (modelId === 'mini') return 'mini'
-    return 'mini' // default
+    if (modelId === 'bees') return 'bees'
+    return 'bees' // default
   }
 
   const financingKey = getModelFinancingKey(actualModelId)
@@ -194,7 +194,7 @@ export default function FinancingSection() {
                     'edpower': '/images/models/edpower.png',
                     'athena': '/images/models/athena.png',
                     'victory': '/images/models/victory.png',
-                    'mini': '/images/models/mini.png',
+                    'bees': '/images/models/bees.png',
                   }
                   const imagePath = imageMap[model.id] || '/images/models/edpower.png'
                   

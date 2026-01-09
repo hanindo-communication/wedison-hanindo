@@ -15,7 +15,7 @@ const BEST_FOR: Record<string, { label: string; icon: typeof FiUsers }> = {
   edpower: { label: 'Pengemudi Ojol Profesional', icon: FiUsers },
   athena: { label: 'Daily Commuter', icon: FiUsers },
   victory: { label: 'Budget-Conscious', icon: FiDollarSign },
-  mini: { label: 'City Rider', icon: FiZap },
+  bees: { label: 'City Rider', icon: FiZap },
 }
 
 // Monthly savings estimate per model
@@ -35,7 +35,7 @@ const getModelImagePath = (modelId: string): string => {
     'athena-extended': '/images/models/athena-extended.png',
     'victory': '/images/models/victory.png',
     'victory-extended': '/images/models/victory-extended.png',
-    'mini': '/images/models/mini.png',
+    'bees': '/images/models/bees.png',
   }
   return imageMap[modelId] || '/images/models/default.png'
 }
