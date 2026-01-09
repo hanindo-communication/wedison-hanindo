@@ -2,19 +2,18 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { FiUser, FiPhone, FiMail, FiMapPin, FiSend, FiCheck } from 'react-icons/fi'
+import { FiUser, FiPhone, FiMapPin, FiSend, FiCheck, FiCreditCard } from 'react-icons/fi'
 import { BsWhatsapp } from 'react-icons/bs'
 import { MODEL_SPECS } from '@/utils/modelSpecs'
-import { WHATSAPP_LINKS } from '@/utils/whatsappLinks'
+import { WHATSAPP_LINKS, getWhatsAppLink } from '@/utils/whatsappLinks'
 import { trackWhatsAppClick } from '@/utils/analytics'
 
 interface FormData {
   name: string
   phone: string
-  email: string
   location: string
+  program: string
   model: string
-  message: string
 }
 
 export default function LeadFormSection() {
@@ -23,10 +22,9 @@ export default function LeadFormSection() {
   const [formData, setFormData] = useState<FormData>({
     name: '',
     phone: '',
-    email: '',
     location: '',
+    program: '',
     model: '',
-    message: '',
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -60,10 +58,9 @@ export default function LeadFormSection() {
       setFormData({
         name: '',
         phone: '',
-        email: '',
         location: '',
+        program: '',
         model: '',
-        message: '',
       })
     } catch (err) {
       setError('Gagal mengirim data. Silakan coba lagi atau hubungi via WhatsApp.')
@@ -79,11 +76,16 @@ export default function LeadFormSection() {
     if (model) {
       message += ` Saya tertarik dengan model ${model.name}.`
     }
-    if (formData.message) {
-      message += ` ${formData.message}`
+    if (formData.program) {
+      const programLabels: Record<string, string> = {
+        'cash': 'Cash/Tunai',
+        'installment': 'Cicilan',
+        'rent-to-own': 'Rent to Own'
+      }
+      message += ` Program yang diminati: ${programLabels[formData.program] || formData.program}.`
     }
     message += ' Bisa info lebih lanjut?'
-    return `https://wa.me/62XXXXXXXXXX?text=${encodeURIComponent(message)}`
+    return getWhatsAppLink(message)
   }
 
   return (
@@ -185,25 +187,6 @@ export default function LeadFormSection() {
                   </div>
                 </div>
 
-                {/* Email */}
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-2">
-                    Email
-                  </label>
-                  <div className="relative">
-                    <FiMail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      className="w-full pl-12 pr-4 py-3 border-2 border-slate-200 rounded-xl focus:outline-none focus:border-electric-blue transition-colors text-slate-800"
-                      placeholder="email@example.com"
-                    />
-                  </div>
-                </div>
-
                 {/* Location */}
                 <div>
                   <label htmlFor="location" className="block text-sm font-medium text-slate-700 mb-2">
@@ -221,6 +204,29 @@ export default function LeadFormSection() {
                       className="w-full pl-12 pr-4 py-3 border-2 border-slate-200 rounded-xl focus:outline-none focus:border-electric-blue transition-colors text-slate-800"
                       placeholder="Jakarta, Tangerang, dll"
                     />
+                  </div>
+                </div>
+
+                {/* Program */}
+                <div>
+                  <label htmlFor="program" className="block text-sm font-medium text-slate-700 mb-2">
+                    Program yang Diminati *
+                  </label>
+                  <div className="relative">
+                    <FiCreditCard className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                    <select
+                      id="program"
+                      name="program"
+                      value={formData.program}
+                      onChange={handleChange}
+                      required
+                      className="w-full pl-12 pr-4 py-3 border-2 border-slate-200 rounded-xl focus:outline-none focus:border-electric-blue transition-colors text-slate-800 bg-white appearance-none"
+                    >
+                      <option value="">Pilih program</option>
+                      <option value="cash">Cash / Tunai</option>
+                      <option value="installment">Cicilan</option>
+                      <option value="rent-to-own">Rent to Own</option>
+                    </select>
                   </div>
                 </div>
               </div>
@@ -244,22 +250,6 @@ export default function LeadFormSection() {
                     </option>
                   ))}
                 </select>
-              </div>
-
-              {/* Message */}
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-slate-700 mb-2">
-                  Pesan / Pertanyaan
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  rows={3}
-                  className="w-full px-4 py-3 border-2 border-slate-200 rounded-xl focus:outline-none focus:border-electric-blue transition-colors text-slate-800 resize-none"
-                  placeholder="Ada pertanyaan khusus?"
-                />
               </div>
 
               {/* Error */}

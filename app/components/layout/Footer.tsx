@@ -10,7 +10,7 @@ import Logo from '../ui/Logo'
 
 const QUICK_LINKS = [
   { label: 'Model & Harga', href: '#models' },
-  { label: 'Kalkulator Hemat', href: '#comparison' },
+  { label: 'Kalkulator Hemat', href: '#combined-savings' },
   { label: 'Simulasi Cicilan', href: '#financing' },
   { label: 'Lokasi Showroom', href: '#showroom' },
   { label: 'FAQ', href: '#faq' },

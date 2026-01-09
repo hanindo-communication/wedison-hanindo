@@ -262,7 +262,7 @@ export default function PainPointsSection() {
             className="mt-10 md:mt-12 text-center"
           >
             <a
-              href="#comparison"
+              href="#combined-savings"
               className="group inline-flex items-center gap-3 px-8 py-4 bg-slate-900 text-white font-bold text-lg rounded-full hover:bg-slate-800 transition-all hover:scale-105 shadow-xl"
             >
               <span>Hitung Penghematan Saya</span>

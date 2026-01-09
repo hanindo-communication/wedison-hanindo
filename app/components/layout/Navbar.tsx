@@ -10,7 +10,7 @@ import Logo from '../ui/Logo'
 
 const NAV_LINKS = [
   { label: 'Model', href: '#models' },
-  { label: 'Hitung Hemat', href: '#comparison' },
+  { label: 'Hitung Hemat', href: '#combined-savings' },
   { label: 'Cicilan', href: '#financing' },
   { label: 'Showroom', href: '#showroom' },
   { label: 'FAQ', href: '#faq' },

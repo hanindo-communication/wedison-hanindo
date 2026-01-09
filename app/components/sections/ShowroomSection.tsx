@@ -59,9 +59,9 @@ export default function ShowroomSection() {
               className="absolute inset-0"
             />
             
-            {/* Fallback if map doesn't load */}
-            <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-electric-blue/20 to-cyan-500/20">
-              <div className="text-center text-slate-600">
+            {/* Fallback if map doesn't load - hidden by default, only shows if map fails */}
+            <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-electric-blue/20 to-cyan-500/20 pointer-events-none opacity-0 transition-opacity duration-300">
+              <div className="text-center text-slate-600 pointer-events-none">
                 <FiMapPin className="text-4xl mx-auto mb-2 text-electric-blue" />
                 <p className="font-semibold">Showroom Wedison</p>
                 <p className="text-sm">Pondok Indah, Jakarta Selatan</p>

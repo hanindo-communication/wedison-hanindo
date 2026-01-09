@@ -6,9 +6,8 @@ import Footer from '@/app/components/layout/Footer'
 import FloatingWhatsAppButton from '@/app/components/ui/FloatingWhatsAppButton'
 import HeroSection from './sections/HeroSection'
 import PainPointsSection from '@/app/components/sections/PainPointsSection'
-import ComparisonSection from '@/app/components/sections/ComparisonSection'
+import CombinedSavingsSection from '@/app/components/sections/CombinedSavingsSection'
 import ModelsTabSection from '@/app/components/sections/ModelsTabSection'
-import SavingsStoriesSection from '@/app/components/sections/SavingsStoriesSection'
 import FinancingSection from '@/app/components/sections/FinancingSection'
 import ShowroomSection from '@/app/components/sections/ShowroomSection'
 import FAQSection from '@/app/components/sections/FAQSection'
@@ -23,9 +22,8 @@ interface LandingPageClientProps {
 // Map section names to components
 const SECTION_COMPONENTS: Record<string, React.ComponentType<{ config?: CampaignConfig }>> = {
   'pain-points': PainPointsSection,
-  comparison: ComparisonSection,
+  'combined-savings': CombinedSavingsSection,
   models: ModelsTabSection,
-  'savings-stories': SavingsStoriesSection,
   financing: FinancingSection,
   showroom: ShowroomSection,
   faq: FAQSection,
