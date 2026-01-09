@@ -1,0 +1,7 @@
+{
+  "buildCommand": "npm run pages:build",
+  "outputDirectory": ".vercel/output/static",
+  "rootDirectory": "",
+  "framework": "nextjs",
+  "nodeVersion": "20"
+}
