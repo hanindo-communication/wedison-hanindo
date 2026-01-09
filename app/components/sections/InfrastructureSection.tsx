@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { FiMapPin } from 'react-icons/fi'
 
 // Helper function to get smart home charging background image path - supports multiple extensions
 const getHomeChargingImagePath = (): string => {
@@ -39,14 +38,6 @@ export default function InfrastructureSection() {
     }
   }, [])
 
-  const benefits = [
-    'Unified charging experience',
-    'Loyalty points & rewards',
-    'Priority allocation untuk Wedison users',
-    'Easy payment via mobile app',
-    '24/7 charging availability',
-  ]
-  
   const homeChargingBenefits = [
     'Gratis instalasi home charger (type: 3.3kW)',
     'Works dengan: AC socket (220V), or direct installation',
@@ -73,68 +64,11 @@ export default function InfrastructureSection() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl sm:text-5xl font-bold text-slate-800 mb-4">
-            Wedison{' '}
-            <span className="text-electric-blue">
-              SuperCharge Network
-            </span>
+            Smart Home Charging
           </h2>
           <p className="text-xl text-slate-600">
-            Charging infrastructure terluas untuk motor listrik di Indonesia
+            Charge di rumah dengan mudah dan hemat
           </p>
-        </motion.div>
-        
-        {/* Map Placeholder */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-16"
-        >
-          <div className="bg-slate-100 rounded-2xl p-8 shadow-lg">
-            <div className="aspect-video bg-slate-200 rounded-xl flex items-center justify-center">
-              <div className="text-center text-slate-600">
-                <FiMapPin className="text-6xl mx-auto mb-4 text-electric-blue" />
-                <p className="text-xl font-semibold mb-2">SuperCharge Network Map</p>
-                <p className="text-sm">Peta lokasi charging station Wedison</p>
-                <p className="text-xs mt-2 text-slate-500">
-                  Replace with actual Google Maps embed showing all charging stations
-                </p>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-        
-        {/* Network Benefits */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-16"
-        >
-          <div className="bg-gradient-to-br from-cyan-50 to-teal-50 rounded-2xl p-8 md:p-12 border-2 border-cyan-200">
-            <h3 className="text-3xl font-bold text-slate-800 mb-6 text-center">
-              SuperCharge Network Benefits
-            </h3>
-            <p className="text-lg text-slate-700 text-center mb-8 max-w-3xl mx-auto">
-              Kami berkomitmen untuk membangun infrastruktur charging terbaik di Indonesia untuk mendukung perjalanan Anda.
-            </p>
-            
-            {/* Benefits Grid */}
-            <div className="grid md:grid-cols-2 gap-4">
-              {benefits.map((benefit, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="flex items-center gap-3 bg-white rounded-lg p-4"
-                >
-                  <span className="text-slate-700">{benefit}</span>
-                </motion.div>
-              ))}
-            </div>
-          </div>
         </motion.div>
         
         {/* Home Charging */}

@@ -35,30 +35,6 @@ export default function TestimonialsSection() {
     },
   ]
   
-  const textTestimonials = [
-    {
-      name: 'Andi Pratama',
-      role: 'Software Engineer',
-      rating: 5,
-      quote: 'SuperCharge benar-benar game changer. 15 menit langsung 80%, perfect untuk daily commute.',
-      photo: 'https://source.unsplash.com/featured/200x200/?portrait,man,professional,tech',
-    },
-    {
-      name: 'Lisa Hermawan',
-      role: 'Entrepreneur',
-      rating: 5,
-      quote: 'Hemat bensin Rp 800rb/bulan. Dalam setahun udah balik modal sebagian. Smart investment!',
-      photo: 'https://source.unsplash.com/featured/200x200/?portrait,woman,professional,business',
-    },
-    {
-      name: 'Doni Setiawan',
-      role: 'Gojek Driver',
-      rating: 5,
-      quote: 'Orderan naik 40% karena ga perlu sering-sering ke SPBU. Battery awet, performa stabil.',
-      photo: 'https://source.unsplash.com/featured/200x200/?portrait,man,professional',
-    },
-  ]
-  
   const nextVideo = () => {
     setActiveVideoIndex((prev) => (prev + 1) % videoTestimonials.length)
   }
@@ -164,48 +140,6 @@ export default function TestimonialsSection() {
               ))}
             </div>
           </div>
-        </div>
-        
-        {/* Text Testimonials Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-          {textTestimonials.map((testimonial, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              whileHover={{ y: -5 }}
-              className="bg-slate-800 rounded-xl p-6"
-            >
-              <div className="flex items-center gap-4 mb-4 relative">
-                {/* Placeholder Badge */}
-                <div className="absolute -top-2 -left-2 z-20 bg-yellow-500 text-black px-2 py-1 rounded text-xs font-bold shadow-lg border border-yellow-600">
-                  PLACEHOLDER
-                </div>
-                <img
-                  src={testimonial.photo}
-                  alt={testimonial.name}
-                  className="w-12 h-12 rounded-full object-cover"
-                  onError={(e) => {
-                    // Fallback jika image gagal load
-                    const target = e.target as HTMLImageElement
-                    target.style.display = 'none'
-                  }}
-                />
-                <div>
-                  <div className="font-semibold">{testimonial.name}</div>
-                  <div className="text-sm text-slate-400">{testimonial.role}</div>
-                </div>
-              </div>
-              <div className="flex gap-1 mb-3">
-                {[...Array(testimonial.rating)].map((_, i) => (
-                  <span key={i} className="text-yellow-400 text-lg">★</span>
-                ))}
-              </div>
-              <p className="text-slate-300 italic">"{testimonial.quote}"</p>
-            </motion.div>
-          ))}
         </div>
         
         {/* Trust Indicators */}

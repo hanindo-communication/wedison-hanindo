@@ -5,9 +5,9 @@ import HeroSlider from './components/sections/HeroSlider'
 import ModelsTabSection from './components/sections/ModelsTabSection'
 import ComparisonSection from './components/sections/ComparisonSection'
 // import ProblemSection from './components/sections/ProblemSection' // Hidden - not needed for now
-import PersonasSection from './components/sections/PersonasSection'
+// import PersonasSection from './components/sections/PersonasSection' // Hidden - not needed for now
 import ShowroomSection from './components/sections/ShowroomSection'
-import InfrastructureSection from './components/sections/InfrastructureSection'
+// import InfrastructureSection from './components/sections/InfrastructureSection' // Hidden - not needed for now
 import TestimonialsSection from './components/sections/TestimonialsSection'
 import FAQSection from './components/sections/FAQSection'
 import FinancingSection from './components/sections/FinancingSection'
@@ -29,9 +29,9 @@ export default function Home() {
       <FinancingSection />
       
       {/* <ProblemSection /> */} {/* Hidden - not needed for now */}
-      <PersonasSection />
+      {/* <PersonasSection /> */} {/* Hidden - not needed for now */}
       <ShowroomSection />
-      <InfrastructureSection />
+      {/* <InfrastructureSection /> */} {/* Hidden - not needed for now */}
       <TestimonialsSection />
       <FAQSection />
       <LeadFormSection />

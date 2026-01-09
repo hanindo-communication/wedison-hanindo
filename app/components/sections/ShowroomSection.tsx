@@ -1,12 +1,8 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { FiMapPin, FiClock, FiPhone } from 'react-icons/fi'
-import { BsWhatsapp } from 'react-icons/bs'
-import Button from '../ui/Button'
+import { FiMapPin } from 'react-icons/fi'
 import { CONTACT } from '@/utils/constants'
-import { WHATSAPP_LINKS } from '@/utils/whatsappLinks'
-import { trackWhatsAppClick, trackTestDriveClick } from '@/utils/analytics'
 
 export default function ShowroomSection() {
   const experiences = [
@@ -17,11 +13,6 @@ export default function ShowroomSection() {
     'Virtual tour teknologi & smart features',
     'Kopi gratis, WiFi, comfortable lounge',
   ]
-  
-  const handleTestDriveClick = () => {
-    trackTestDriveClick()
-    trackWhatsAppClick('showroom-test-drive')
-  }
   
   return (
     <section id="showroom" className="py-20 bg-slate-50">
@@ -40,7 +31,7 @@ export default function ShowroomSection() {
             Wedison Jakarta Selatan
           </h2>
           <p className="text-xl text-slate-600">
-            Kunjungi showroom kami untuk test drive dan konsultasi langsung
+            Ingin cek secara langsung atau test drive? Kunjungi showroom kami di lokasi berikut
           </p>
         </motion.div>
         
@@ -73,26 +64,6 @@ export default function ShowroomSection() {
               </div>
             </div>
             
-            {/* Hours Block */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg">
-              <div className="flex items-start gap-4">
-                <FiClock className="text-3xl text-electric-blue flex-shrink-0 mt-1" />
-                <div className="flex-1">
-                  <h3 className="text-xl font-bold text-slate-800 mb-4">Operasional</h3>
-                  <div className="space-y-2 text-slate-600">
-                    <div className="flex justify-between">
-                      <span>Senin - Jumat:</span>
-                      <span className="font-semibold">09:00 - 18:00</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Sabtu - Minggu:</span>
-                      <span className="font-semibold">10:00 - 17:00</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
             {/* Experience Block */}
             <div className="bg-gradient-to-br from-cyan-50 to-teal-50 rounded-2xl p-8 border-2 border-cyan-200">
               <h3 className="text-xl font-bold text-slate-800 mb-4">
@@ -112,29 +83,6 @@ export default function ShowroomSection() {
                   </motion.div>
                 ))}
               </div>
-            </div>
-            
-            {/* Contact Block */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg">
-              <div className="flex items-start gap-4 mb-6">
-                <FiPhone className="text-3xl text-electric-blue flex-shrink-0 mt-1" />
-                <div>
-                  <h3 className="text-xl font-bold text-slate-800 mb-2">Kontak</h3>
-                  <p className="text-slate-600 mb-2">{CONTACT.phone}</p>
-                  <p className="text-slate-600">WhatsApp: Langsung ke admin showroom</p>
-                </div>
-              </div>
-              
-              <Button
-                href={WHATSAPP_LINKS.testDrive}
-                onClick={handleTestDriveClick}
-                variant="primary"
-                size="large"
-                fullWidth
-              >
-                <BsWhatsapp className="text-2xl" />
-                Chat WhatsApp
-              </Button>
             </div>
           </motion.div>
           
@@ -174,25 +122,33 @@ export default function ShowroomSection() {
               </a>
             </div>
             
-            {/* Photo Gallery Placeholder */}
+            {/* Photo Gallery Placeholder - Stacking Cards */}
             <div className="bg-white rounded-2xl p-4 shadow-lg relative">
               {/* Placeholder Badge */}
-              <div className="absolute top-2 left-2 z-20 bg-yellow-500 text-black px-4 py-2 rounded-lg font-bold text-sm shadow-lg border-2 border-yellow-600">
+              <div className="absolute top-2 left-2 z-30 bg-yellow-500 text-black px-4 py-2 rounded-lg font-bold text-sm shadow-lg border-2 border-yellow-600">
                 PLACEHOLDER - Upload actual showroom photos
               </div>
               <h3 className="text-lg font-bold text-slate-800 mb-4">Galeri Showroom</h3>
-              <div className="grid grid-cols-2 gap-4 relative">
+              <div className="relative h-64 flex items-center justify-center">
                 {[1, 2, 3, 4].map((i) => (
-                  <div
+                  <motion.div
                     key={i}
-                    className="aspect-square bg-slate-200 rounded-lg flex items-center justify-center border-2 border-dashed border-slate-400 relative"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.1 }}
+                    className="absolute w-48 h-64 bg-slate-200 rounded-xl flex items-center justify-center border-2 border-dashed border-slate-400 shadow-lg"
+                    style={{
+                      transform: `translateX(${(i - 1) * 20}px) translateY(${(i - 1) * -15}px) rotate(${(i - 1) * -3}deg)`,
+                      zIndex: 5 - i,
+                    }}
                   >
                     {/* Badge untuk setiap photo placeholder */}
-                    <div className="absolute top-1 right-1 bg-yellow-500 text-black px-2 py-1 rounded text-xs font-bold shadow-md border border-yellow-600">
+                    <div className="absolute top-2 right-2 bg-yellow-500 text-black px-2 py-1 rounded text-xs font-bold shadow-md border border-yellow-600 z-10">
                       PLACEHOLDER
                     </div>
                     <span className="text-slate-500 text-sm font-medium">Photo {i}</span>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
               <p className="text-sm text-slate-500 mt-4 text-center">
