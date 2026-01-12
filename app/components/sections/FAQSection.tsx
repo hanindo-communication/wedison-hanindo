@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FiPlus, FiMinus, FiDollarSign, FiZap, FiTrendingUp, FiShield } from 'react-icons/fi'
+import { FiPlus, FiMinus, FiBattery, FiZap, FiTrendingUp, FiShield, FiTool, FiSmartphone } from 'react-icons/fi'
 import { BsWhatsapp } from 'react-icons/bs'
 import { WHATSAPP_LINKS } from '@/utils/whatsappLinks'
 import { trackWhatsAppClick } from '@/utils/analytics'
@@ -15,104 +15,142 @@ interface FAQItem {
 interface FAQCategory {
   id: string
   name: string
-  icon: typeof FiDollarSign
+  icon: typeof FiBattery
   items: FAQItem[]
 }
 
 const FAQ_CATEGORIES: FAQCategory[] = [
   {
-    id: 'hemat-biaya',
-    name: 'Hemat Biaya',
-    icon: FiDollarSign,
+    id: 'baterai',
+    name: 'Baterai',
+    icon: FiBattery,
     items: [
       {
-        question: 'Berapa banyak yang bisa dihemat dengan motor listrik Wedison?',
-        answer: 'Dengan motor listrik Wedison, Anda bisa hemat hingga Rp 300.000 - Rp 500.000 per bulan dibanding motor bensin, tergantung penggunaan. Tidak perlu beli bensin lagi, hanya perlu listrik yang jauh lebih murah.',
+        question: 'Apa jaminan untuk baterai?',
+        answer: 'Baterai Wedison dilindungi garansi 3 tahun. Kami menggunakan baterai LiFePO4 berkualitas tinggi yang aman, tahan lama, dan ramah lingkungan.',
       },
       {
-        question: 'Berapa biaya listrik untuk charge motor?',
-        answer: 'Biaya listrik untuk sekali charge penuh hanya sekitar Rp 5.000 - Rp 10.000, setara dengan biaya bensin untuk 1-2 liter. Sangat hemat dibanding motor bensin!',
+        question: 'Jenis baterai apa yang digunakan?',
+        answer: 'Wedison menggunakan baterai Lithium Iron Phosphate (LiFePO4) yang dikenal lebih aman, stabil, dan memiliki masa pakai lebih panjang dibanding baterai lithium biasa.',
       },
       {
-        question: 'Berapa biaya maintenance motor listrik?',
-        answer: 'Biaya maintenance motor listrik jauh lebih rendah karena tidak perlu ganti oli, busi, atau filter. Hanya perlu cek rem dan ban secara berkala. Baterai dilindungi garansi 3 tahun.',
+        question: 'Berapa lama baterai dapat bertahan?',
+        answer: 'Baterai Wedison dirancang untuk bertahan hingga 2000+ siklus pengisian, yang setara dengan penggunaan normal selama 5-7 tahun.',
       },
       {
-        question: 'Apakah benar motor listrik lebih hemat untuk ojol?',
-        answer: 'Sangat benar! Untuk ojol yang pakai motor setiap hari, penghematan bisa mencapai Rp 500.000+ per bulan. Bensin harian bisa dihilangkan, diganti dengan listrik yang jauh lebih murah.',
+        question: 'Bisakah baterai diganti?',
+        answer: 'Ya, baterai Wedison dapat diganti. Anda bisa mengunjungi Experience Center kami untuk penggantian baterai atau konsultasi lebih lanjut.',
+      },
+      {
+        question: 'Bagaimana menjaga baterai dalam kondisi baik?',
+        answer: 'Hindari mengisi hingga 100% atau mengosongkan hingga 0% secara rutin. Idealnya jaga level 20-80%. Simpan di tempat sejuk dan gunakan charger resmi Wedison.',
       },
     ],
   },
   {
-    id: 'harga-financing',
-    name: 'Harga & Pembiayaan',
-    icon: FiDollarSign,
+    id: 'pengisian-daya',
+    name: 'Pengisian Daya',
+    icon: FiZap,
     items: [
       {
-        question: 'Berapa harga motor listrik Wedison?',
-        answer: 'Harga mulai dari Rp 15 jutaan tergantung model. Model Bees paling terjangkau, sementara EdPower dengan fitur lengkap. Semua harga sudah termasuk baterai dan charger.',
+        question: 'Berapa lama waktu mengisi baterai hingga penuh?',
+        answer: 'Dengan charger standar di rumah, pengisian penuh membutuhkan 2-4 jam tergantung model. Dengan SuperCharge, hanya 15 menit untuk 10-80%.',
       },
       {
-        question: 'Apakah ada opsi cicilan?',
-        answer: 'Ya! Kami menyediakan berbagai opsi pembiayaan termasuk DP 0%, cicilan Kredivo, dan berbagai pilihan tenor. Cicilan mulai dari Rp 400.000-an per bulan tergantung model dan DP.',
+        question: 'Di mana saya bisa mengisi daya?',
+        answer: 'Anda bisa mengisi daya di rumah dengan charger standar, atau di stasiun SuperCharge Wedison yang tersebar di berbagai lokasi strategis.',
       },
       {
-        question: 'Berapa DP minimal yang dibutuhkan?',
-        answer: 'DP mulai dari 0% tersedia dengan berbagai pilihan pembiayaan. DP yang lebih besar akan membuat cicilan bulanan lebih ringan. Hubungi kami untuk simulasi pembiayaan yang sesuai budget Anda.',
+        question: 'Bisakah menggunakan charger pihak ketiga?',
+        answer: 'Kami sangat menyarankan menggunakan charger resmi Wedison untuk menjaga performa dan keamanan baterai. Penggunaan charger tidak resmi dapat mempengaruhi garansi.',
       },
       {
-        question: 'Apakah ada promo atau diskon khusus?',
-        answer: 'Kami sering memiliki promo dan penawaran khusus. Hubungi tim sales kami via WhatsApp untuk informasi promo terbaru dan penawaran terbaik hari ini.',
+        question: 'Seberapa sering harus mengisi daya?',
+        answer: 'Tergantung pola penggunaan Anda. Untuk penggunaan harian rata-rata 30-50km, Anda mungkin perlu mengisi 2-3 hari sekali. Untuk ojol, bisa memanfaatkan SuperCharge saat istirahat.',
       },
     ],
   },
   {
     id: 'performa',
-    name: 'Performa & Penggunaan',
+    name: 'Performa',
     icon: FiTrendingUp,
     items: [
       {
-        question: 'Berapa jarak tempuh per sekali charge?',
-        answer: 'Range bervariasi per model: Bees 80km, Athena 100km (Extended 130km), Victory 100km (Extended 130km), dan EdPower 135km per charge. Cukup untuk penggunaan sehari-hari hingga ojol.',
-      },
-      {
         question: 'Berapa kecepatan maksimal motor Wedison?',
-        answer: 'Kecepatan maksimal: Bees 60 km/h, Athena & Victory 75 km/h, dan EdPower 85 km/h. Cukup untuk penggunaan jalanan kota dan jalan tol.',
+        answer: 'Kecepatan maksimal bervariasi per model: Bees 60 km/h, Athena & Victory 75 km/h, dan EdPower 85 km/h.',
       },
       {
         question: 'Apakah kuat untuk naik tanjakan?',
-        answer: 'Ya! Motor Wedison dilengkapi motor bertenaga yang mampu menanjak hingga 15 derajat dengan boncengan. Torsi instan memberikan akselerasi yang responsif.',
+        answer: 'Ya! Motor Wedison dilengkapi motor BLDC bertenaga yang mampu menanjak hingga 15 derajat dengan boncengan. Torsi instan memberikan akselerasi responsif.',
       },
       {
-        question: 'Berapa lama waktu charge baterai?',
-        answer: 'Dengan charger standar di rumah, pengisian penuh membutuhkan 2-4 jam tergantung model. Dengan SuperCharge, hanya 15 menit untuk 10-80%, sangat cepat untuk pengisian saat di perjalanan.',
+        question: 'Berapa jarak tempuh per sekali charge?',
+        answer: 'Range bervariasi: Bees 80km, Athena 100km (Extended 130km), Victory 100km (Extended 130km), dan EdPower 135km per charge.',
       },
       {
         question: 'Apakah bisa digunakan untuk ojol full-time?',
-        answer: 'Sangat bisa! Terutama model EdPower dengan range 135km. Dengan SuperCharge 15 menit, Anda bisa charge sambil istirahat dan lanjut bekerja. Banyak ojol yang sudah menggunakan motor listrik Wedison.',
+        answer: 'Sangat bisa! Terutama model EdPower dengan range 135km. Dengan SuperCharge 15 menit, Anda bisa charge sambil istirahat dan lanjut bekerja.',
       },
     ],
   },
   {
-    id: 'garansi',
-    name: 'Garansi & Keamanan',
+    id: 'keamanan',
+    name: 'Keamanan',
     icon: FiShield,
     items: [
       {
-        question: 'Berapa lama garansi motor Wedison?',
-        answer: 'Garansi baterai 3 tahun dan motor 2 tahun. Garansi mencakup kerusakan akibat cacat produksi. Baterai adalah komponen paling mahal dan sudah dilindungi garansi panjang.',
+        question: 'Apa rating IP baterai Wedison?',
+        answer: 'Baterai Wedison memiliki rating IP67 yang tahan debu dan tahan air (bisa terendam hingga kedalaman 1 meter selama 30 menit).',
       },
       {
         question: 'Apakah aman digunakan saat hujan?',
-        answer: 'Ya, motor Wedison dirancang tahan terhadap kondisi hujan normal. Baterai memiliki proteksi IP67 yang tahan air. Aman digunakan sehari-hari termasuk saat hujan.',
+        answer: 'Ya, motor Wedison dirancang tahan terhadap kondisi hujan normal. Namun hindari merendam motor dalam genangan air yang dalam.',
+      },
+      {
+        question: 'Bagaimana sistem keamanan motor?',
+        answer: 'Motor Wedison dilengkapi dengan keyless ignition, alarm, dan fitur tracking melalui aplikasi untuk keamanan maksimal.',
+      },
+    ],
+  },
+  {
+    id: 'layanan',
+    name: 'Garansi & Layanan',
+    icon: FiTool,
+    items: [
+      {
+        question: 'Berapa lama garansi motor Wedison?',
+        answer: 'Garansi baterai 3 tahun dan motor 2 tahun. Garansi mencakup kerusakan akibat cacat produksi, bukan kerusakan akibat kecelakaan atau penyalahgunaan.',
       },
       {
         question: 'Di mana saya bisa servis motor?',
-        answer: 'Anda bisa mengunjungi Experience Center Wedison untuk servis berkala, perbaikan, atau konsultasi. Lokasi tersedia di beberapa kota besar. Hubungi kami untuk lokasi terdekat.',
+        answer: 'Anda bisa mengunjungi Experience Center Wedison untuk servis berkala, perbaikan, atau konsultasi. Lokasi tersedia di beberapa kota besar.',
       },
       {
-        question: 'Berapa lama umur baterai?',
-        answer: 'Baterai Wedison dirancang untuk bertahan hingga 2000+ siklus pengisian, yang setara dengan penggunaan normal selama 5-7 tahun. Dengan garansi 3 tahun, Anda tidak perlu khawatir.',
+        question: 'Berapa biaya maintenance?',
+        answer: 'Biaya maintenance motor listrik jauh lebih rendah dibanding motor bensin karena tidak perlu ganti oli, busi, atau filter. Hanya perlu cek rem dan ban secara berkala.',
+      },
+      {
+        question: 'Apakah ada layanan home service?',
+        answer: 'Ya, untuk beberapa layanan ringan kami menyediakan home service. Hubungi customer service kami untuk informasi lebih lanjut.',
+      },
+    ],
+  },
+  {
+    id: 'fitur',
+    name: 'Fitur & Aplikasi',
+    icon: FiSmartphone,
+    items: [
+      {
+        question: 'Fitur apa saja yang tersedia di aplikasi?',
+        answer: 'Aplikasi Wedison menyediakan fitur tracking lokasi motor, monitoring kesehatan baterai, riwayat perjalanan, lokasi stasiun SuperCharge, dan remote lock/unlock.',
+      },
+      {
+        question: 'Apakah motor bisa terhubung dengan smartphone?',
+        answer: 'Ya, semua model Wedison dapat terhubung dengan smartphone melalui Bluetooth. Model EdPower bahkan mendukung Apple CarPlay dan Android Auto.',
+      },
+      {
+        question: 'Apakah ada fitur anti-maling?',
+        answer: 'Ya, motor Wedison dilengkapi dengan alarm, GPS tracking, dan notifikasi real-time ke smartphone jika ada aktivitas mencurigakan.',
       },
     ],
   },
