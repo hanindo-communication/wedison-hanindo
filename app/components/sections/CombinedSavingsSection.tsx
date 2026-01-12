@@ -224,7 +224,7 @@ export default function CombinedSavingsSection({ config }: CombinedSavingsSectio
   const [imageError, setImageError] = useState<Record<string, boolean>>({})
   
   // Tab navigation state
-  const [activeTab, setActiveTab] = useState<'kalkulator' | 'cerita' | 'harga'>('kalkulator')
+  const [activeTab, setActiveTab] = useState<'kalkulator' | 'cerita'>('kalkulator')
 
   // Handle preset change
   useEffect(() => {
@@ -369,31 +369,6 @@ export default function CombinedSavingsSection({ config }: CombinedSavingsSectio
               <FiStar className="text-lg" />
               <span className="hidden sm:inline">Cerita Pengguna</span>
               <span className="sm:hidden">Cerita</span>
-            </motion.button>
-            <motion.button
-              onClick={() => setActiveTab('harga')}
-              whileTap={{ scale: 0.95 }}
-              animate={activeTab !== 'harga' ? {
-                scale: [1, 1.02, 1],
-                boxShadow: [
-                  '0 0 0 0 rgba(34, 197, 94, 0)',
-                  '0 0 0 4px rgba(34, 197, 94, 0.15)',
-                  '0 0 0 0 rgba(34, 197, 94, 0)'
-                ]
-              } : {}}
-              transition={activeTab !== 'harga' ? {
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut"
-              } : { type: "spring", stiffness: 400, damping: 17 }}
-              className={`flex items-center gap-2 px-4 md:px-6 py-2.5 md:py-3 rounded-xl font-semibold transition-all text-sm md:text-base cursor-pointer ${
-                activeTab === 'harga'
-                  ? 'bg-success-green text-white shadow-md'
-                  : 'text-slate-700 bg-slate-50 border-2 border-slate-200 hover:border-success-green hover:bg-slate-100'
-              }`}
-            >
-              <FiDollarSign className="text-lg" />
-              <span>Harga</span>
             </motion.button>
           </motion.div>
         </div>
@@ -645,15 +620,28 @@ export default function CombinedSavingsSection({ config }: CombinedSavingsSectio
                 </div>
               </div>
 
-              {/* CTA */}
-              <a
-                href={WHATSAPP_LINKS.general}
-                onClick={() => trackWhatsAppClick('comparison-calculator')}
-                className="flex items-center justify-center gap-2 w-full px-6 py-4 bg-success-green text-white font-bold rounded-full hover:bg-green-600 transition-all hover:scale-105 shadow-lg"
-              >
-                <BsWhatsapp className="text-xl" />
-                <span>Saya Mau Hemat Juga!</span>
-              </a>
+              {/* CTA to Financing */}
+              <div className="space-y-3">
+                <a
+                  href="#financing"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    document.getElementById('financing')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                  }}
+                  className="flex items-center justify-center gap-2 w-full px-6 py-4 bg-electric-blue text-white font-bold rounded-full hover:bg-blue-600 transition-all hover:scale-105 shadow-lg"
+                >
+                  <FiDollarSign className="text-xl" />
+                  <span>Lihat Harga & Cara Pembayaran</span>
+                </a>
+                <a
+                  href={WHATSAPP_LINKS.general}
+                  onClick={() => trackWhatsAppClick('comparison-calculator')}
+                  className="flex items-center justify-center gap-2 w-full px-6 py-4 bg-white border-2 border-success-green text-success-green font-bold rounded-full hover:bg-success-green/5 transition-all"
+                >
+                  <BsWhatsapp className="text-xl" />
+                  <span>Saya Mau Hemat Juga!</span>
+                </a>
+              </div>
             </div>
           </div>
 
@@ -907,91 +895,6 @@ export default function CombinedSavingsSection({ config }: CombinedSavingsSectio
           </div>
         </div>
 
-        {/* Harga Model Tab - shown when harga tab active */}
-        <div className={activeTab !== 'harga' ? 'hidden' : ''}>
-          <div className="bg-white rounded-3xl shadow-xl border-2 border-slate-100 overflow-hidden">
-            <div className="p-6 md:p-8">
-              {/* Header */}
-              <div className="text-center mb-8">
-                <h3 className="text-2xl md:text-3xl font-bold text-slate-800 mb-2">
-                  Daftar Harga Model
-                </h3>
-                <p className="text-slate-600">
-                  Pilih model yang sesuai dengan kebutuhan Anda
-                </p>
-              </div>
-
-              {/* Price List - Grid with Images */}
-              <div className="grid grid-cols-2 gap-4 mb-8">
-                {mainModels.map((model) => {
-                  const imageMap: Record<string, string> = {
-                    'edpower': '/images/models/edpower.png',
-                    'athena': '/images/models/athena.png',
-                    'victory': '/images/models/victory.png',
-                    'bees': '/images/models/bees.png',
-                  }
-                  const imagePath = imageMap[model.id] || '/images/models/edpower.png'
-                  
-                  return (
-                    <div
-                      key={model.id}
-                      className="relative overflow-hidden rounded-2xl border-2 border-slate-200 hover:border-electric-blue transition-all hover:shadow-lg group"
-                    >
-                      {/* Background Image */}
-                      <div 
-                        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                        style={{ 
-                          backgroundImage: `url(${imagePath})`,
-                          backgroundSize: '130%',
-                          backgroundPosition: 'center 35%',
-                        }}
-                      />
-                      
-                      {/* Gradient Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/70 to-slate-900/50 group-hover:from-slate-900/98" />
-                      
-                      {/* Content */}
-                      <div className="relative z-10 p-4 pt-16 text-left min-h-[180px] flex flex-col justify-end">
-                        <h4 className="text-xl font-bold text-white mb-1">{model.name}</h4>
-                        <p className="text-sm text-white/80 mb-3">{model.range}</p>
-                        <div>
-                          <p className="text-2xl font-bold text-success-green">{model.price}</p>
-                          <p className="text-xs text-white/60 line-through">
-                            Rp {(parseInt(model.price.replace(/[^0-9]/g, '')) + 8000000).toLocaleString('id-ID')}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  )
-                })}
-              </div>
-
-              {/* Highlight Starting Price */}
-              <div className="bg-gradient-to-br from-success-green to-emerald-600 rounded-2xl p-6 text-white text-center mb-6">
-                <p className="text-white/80 text-sm mb-2">Mulai dari</p>
-                <p className="text-4xl md:text-5xl font-bold mb-2">Rp 15 Juta</p>
-                <p className="text-white/80">Setelah subsidi hingga Rp 8 Juta</p>
-              </div>
-
-              {/* CTA */}
-              <div className="flex flex-col sm:flex-row gap-4">
-                <a
-                  href="#models"
-                  className="flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-electric-blue text-white font-bold rounded-full hover:bg-blue-600 transition-all hover:scale-105 shadow-lg"
-                >
-                  <span>Lihat Detail Model</span>
-                </a>
-                <a
-                  href="#financing"
-                  className="flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-white border-2 border-electric-blue text-electric-blue font-bold rounded-full hover:bg-electric-blue/5 transition-all"
-                >
-                  <FiDollarSign className="text-xl" />
-                  <span>Simulasi Cicilan</span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   )
