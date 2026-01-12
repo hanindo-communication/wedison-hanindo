@@ -193,22 +193,20 @@ export default function ModelsTabSection() {
           >
             <div className="flex flex-col lg:grid lg:grid-cols-2">
               {/* Left: Image */}
-              <div className="relative aspect-square lg:aspect-auto bg-gradient-to-br from-slate-100 to-slate-200 px-6 py-4 sm:px-7 sm:py-6 md:p-8 flex items-center justify-center">
-                <div className="relative w-full h-full max-w-[85%] sm:max-w-md mx-auto">
-                  <div className="relative w-full h-full overflow-hidden rounded-lg">
-                    <Image
-                      src={imageError 
-                        ? `https://source.unsplash.com/featured/600x600/?electric,motorcycle,${activeModel.name.toLowerCase()}`
-                        : modelImagePath
-                      }
-                      alt={`${activeModel.name} - Wedison Electric Motorcycle`}
-                      fill
-                      className="object-contain"
-                      priority={activeTab === 0}
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      onError={() => setImageError(true)}
-                    />
-                  </div>
+              <div className="relative bg-gradient-to-br from-slate-100 to-slate-200 p-4 sm:p-6 md:p-8 flex items-center justify-center">
+                <div className="relative w-full aspect-square max-w-xs sm:max-w-sm md:max-w-md mx-auto">
+                  <Image
+                    src={imageError 
+                      ? `https://source.unsplash.com/featured/600x600/?electric,motorcycle,${activeModel.name.toLowerCase()}`
+                      : modelImagePath
+                    }
+                    alt={`${activeModel.name} - Wedison Electric Motorcycle`}
+                    fill
+                    className="object-contain"
+                    priority={activeTab === 0}
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    onError={() => setImageError(true)}
+                  />
                 </div>
               </div>
 

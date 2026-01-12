@@ -38,31 +38,33 @@ export default function ShowroomSection() {
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
-          {/* Left: Map Placeholder */}
+        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-6 lg:gap-12">
+          {/* Left: Map */}
           <motion.div
             initial={false}
-          animate={{ opacity: 1, x: 0 }}
-            className="relative aspect-[4/3] lg:aspect-auto lg:h-full min-h-[300px] rounded-3xl overflow-hidden bg-slate-200"
+            animate={{ opacity: 1, x: 0 }}
+            className="relative w-full rounded-3xl overflow-hidden bg-slate-200"
           >
-            {/* Map Iframe */}
-            <iframe
-              src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=${encodeURIComponent(CONTACT.showroomAddress)}`}
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              className="absolute inset-0"
-            />
-            
-            {/* Fallback if map doesn't load - hidden by default, only shows if map fails */}
-            <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-electric-blue/20 to-cyan-500/20 pointer-events-none opacity-0 transition-opacity duration-300">
-              <div className="text-center text-slate-600 pointer-events-none">
-                <FiMapPin className="text-4xl mx-auto mb-2 text-electric-blue" />
-                <p className="font-semibold">Showroom Wedison</p>
-                <p className="text-sm">Pondok Indah, Jakarta Selatan</p>
+            {/* Map Iframe - vertical aspect ratio on mobile, auto on desktop */}
+            <div className="relative aspect-[3/4] sm:aspect-square lg:aspect-auto lg:h-full lg:min-h-[400px]">
+              <iframe
+                src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=${encodeURIComponent(CONTACT.showroomAddress)}`}
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="absolute inset-0"
+              />
+              
+              {/* Fallback if map doesn't load */}
+              <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-electric-blue/20 to-cyan-500/20 pointer-events-none opacity-0 transition-opacity duration-300">
+                <div className="text-center text-slate-600 pointer-events-none">
+                  <FiMapPin className="text-4xl mx-auto mb-2 text-electric-blue" />
+                  <p className="font-semibold">Showroom Wedison</p>
+                  <p className="text-sm">Pondok Indah, Jakarta Selatan</p>
+                </div>
               </div>
             </div>
           </motion.div>
