@@ -295,7 +295,10 @@ export default function FAQSection() {
           </p>
           <a
             href={WHATSAPP_LINKS.general}
-            onClick={() => trackWhatsAppClick('faq-section')}
+            onClick={(e) => {
+              trackWhatsAppClick('faq-section')
+              // Don't prevent default - let WhatsApp link open normally
+            }}
             className="inline-flex items-center gap-2 px-8 py-4 bg-success-green text-white font-semibold rounded-full hover:bg-green-600 transition-all hover:scale-105 shadow-lg"
           >
             <BsWhatsapp className="text-xl" />
