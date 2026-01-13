@@ -1,5 +1,7 @@
 'use client'
 
+import { useState } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 
 interface LogoProps {
@@ -11,6 +13,9 @@ interface LogoProps {
 }
 
 export default function Logo({ className = '', size = 'medium', showText = false, href = '/', onClick }: LogoProps) {
+  const [imageError, setImageError] = useState(false)
+  const [imageLoaded, setImageLoaded] = useState(false)
+
   const sizeClasses = {
     small: 'h-10 w-10',
     medium: 'h-16 w-16',
@@ -38,33 +43,65 @@ export default function Logo({ className = '', size = 'medium', showText = false
       }
     }
   }
+
+  // Placeholder SVG fallback
+  const placeholderSVG = (
+    <div className="w-full h-full flex items-center justify-center">
+      <svg
+        viewBox="0 0 100 100"
+        className="w-full h-full"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        {/* Mountain W shape */}
+        <path
+          d="M10 80 L25 30 L40 60 L55 20 L70 60 L85 30 L90 80 Z"
+          fill="url(#mountainGradient)"
+          stroke="#06B6D4"
+          strokeWidth="2"
+        />
+        <defs>
+          <linearGradient id="mountainGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#22C55E" />
+            <stop offset="100%" stopColor="#16A34A" />
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+  )
   
   const logoContent = (
     <>
-      {/* Logo - Simple SVG fallback */}
+      {/* Logo Image with fallback */}
       <div className={`relative ${sizeClasses[size]} flex-shrink-0 flex items-center justify-center overflow-hidden`}>
-        <div className="w-full h-full flex items-center justify-center">
-          <svg
-            viewBox="0 0 100 100"
-            className="w-full h-full"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            {/* Mountain W shape */}
-            <path
-              d="M10 80 L25 30 L40 60 L55 20 L70 60 L85 30 L90 80 Z"
-              fill="url(#mountainGradient)"
-              stroke="#06B6D4"
-              strokeWidth="2"
+        {!imageError ? (
+          <div className="relative w-full h-full">
+            <Image
+              src="/logo/logo.png"
+              alt="Wedison Logo"
+              fill
+              sizes="(max-width: 768px) 40px, 64px"
+              className={`object-contain transition-opacity duration-300 ${
+                imageLoaded ? 'opacity-100' : 'opacity-0'
+              } ${className.includes('brightness-0') ? 'brightness-0' : ''} ${className.includes('invert') ? 'invert' : ''}`}
+              onError={() => {
+                setImageError(true)
+              }}
+              onLoad={() => {
+                setImageLoaded(true)
+              }}
+              priority
+              unoptimized
             />
-            <defs>
-              <linearGradient id="mountainGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="#22C55E" />
-                <stop offset="100%" stopColor="#16A34A" />
-              </linearGradient>
-            </defs>
-          </svg>
-        </div>
+          </div>
+        ) : null}
+        
+        {/* Show placeholder if error or image not loaded yet */}
+        {(imageError || !imageLoaded) && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            {placeholderSVG}
+          </div>
+        )}
       </div>
       
       {/* Logo Text */}
