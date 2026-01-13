@@ -15,7 +15,7 @@ export const COLORS = {
 export const CONTACT = {
   phone: '0821-2465-7804',
   whatsapp: '+6282124657804',
-  email: 'Support@wedison.co',
+  email: 'support@wedison.co',
   showroomAddress: 'Jl. Arteri Pondok Indah No. 30A-C, Jakarta Selatan',
   showroomHours: {
     weekday: 'Senin - Jumat: 10:00 - 18:00',

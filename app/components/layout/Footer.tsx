@@ -1,8 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import { BsWhatsapp, BsInstagram, BsFacebook, BsYoutube } from 'react-icons/bs'
-import { FiMapPin, FiPhone, FiMail, FiClock } from 'react-icons/fi'
+import { BsWhatsapp } from 'react-icons/bs'
+import { FiMapPin, FiMail, FiClock } from 'react-icons/fi'
 import { CONTACT } from '@/utils/constants'
 import { WHATSAPP_LINKS } from '@/utils/whatsappLinks'
 import { trackWhatsAppClick } from '@/utils/analytics'
@@ -14,12 +14,6 @@ const QUICK_LINKS = [
   { label: 'Simulasi Cicilan', href: '#financing' },
   { label: 'Lokasi Showroom', href: '#showroom' },
   { label: 'FAQ', href: '#faq' },
-]
-
-const SOCIAL_LINKS = [
-  { icon: BsInstagram, href: 'https://instagram.com/wedison', label: 'Instagram' },
-  { icon: BsFacebook, href: 'https://facebook.com/wedison', label: 'Facebook' },
-  { icon: BsYoutube, href: 'https://youtube.com/wedison', label: 'YouTube' },
 ]
 
 export default function Footer() {
@@ -44,21 +38,6 @@ export default function Footer() {
             <p className="text-slate-400 mb-6">
               Motor listrik dengan teknologi SuperCharge. Hemat hingga 60% biaya BBM.
             </p>
-            {/* Social Links */}
-            <div className="flex items-center gap-4">
-              {SOCIAL_LINKS.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center text-slate-400 hover:bg-electric-blue hover:text-white transition-colors"
-                  aria-label={social.label}
-                >
-                  <social.icon className="text-lg" />
-                </a>
-              ))}
-            </div>
           </div>
 
           {/* Quick Links */}
@@ -86,20 +65,21 @@ export default function Footer() {
               <li>
                 <a
                   href={WHATSAPP_LINKS.general}
-                  onClick={() => trackWhatsAppClick('footer')}
+                  onClick={() => trackWhatsAppClick('footer-phone')}
                   className="flex items-start gap-3 text-slate-400 hover:text-white transition-colors"
                 >
                   <BsWhatsapp className="text-lg mt-1 flex-shrink-0" />
-                  <span>Chat WhatsApp</span>
+                  <span>{CONTACT.phone}</span>
                 </a>
               </li>
-              <li className="flex items-start gap-3 text-slate-400">
-                <FiMail className="text-lg mt-1 flex-shrink-0" />
-                <span>{CONTACT.email}</span>
-              </li>
-              <li className="flex items-start gap-3 text-slate-400">
-                <FiPhone className="text-lg mt-1 flex-shrink-0" />
-                <span>{CONTACT.phone}</span>
+              <li>
+                <a
+                  href={`mailto:${CONTACT.email}`}
+                  className="flex items-start gap-3 text-slate-400 hover:text-white transition-colors"
+                >
+                  <FiMail className="text-lg mt-1 flex-shrink-0" />
+                  <span>{CONTACT.email}</span>
+                </a>
               </li>
             </ul>
           </div>
