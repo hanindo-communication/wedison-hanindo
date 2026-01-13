@@ -38,14 +38,14 @@ export async function POST(request: NextRequest) {
 
     // Try to parse JSON response
     let result
+    const responseText = await response.text()
     try {
-      const text = await response.text()
-      result = text ? JSON.parse(text) : { success: false }
+      result = responseText ? JSON.parse(responseText) : { success: false }
     } catch (parseError) {
       console.error('❌ Failed to parse Google Sheets response:', parseError)
-      console.error('Response text:', await response.text())
+      console.error('Response text:', responseText)
       return NextResponse.json(
-        { error: 'Invalid response from Google Sheets' },
+        { error: 'Invalid response from Google Sheets', details: responseText },
         { status: 500 }
       )
     }
