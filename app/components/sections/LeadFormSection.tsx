@@ -40,22 +40,21 @@ export default function LeadFormSection() {
     setIsSubmitting(true)
     setError('')
 
+    // Google Apps Script URL - submit directly from client
+    const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxta1aDG6Btj7zovplN9JsNpZLXeumUw-zHnx3HlMb23aEvs1fPPXKTf_lK-8rnskqMTQ/exec'
+
     try {
-      // Submit to API
-      const response = await fetch('/api/lead', {
+      // Submit directly to Google Apps Script (bypasses Cloudflare edge issues)
+      const response = await fetch(GOOGLE_SHEETS_URL, {
         method: 'POST',
+        mode: 'no-cors', // Required for Google Apps Script
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'text/plain',
         },
         body: JSON.stringify(formData),
       })
 
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.error || data.details || 'Failed to submit')
-      }
-
+      // With no-cors mode, we can't read the response, but if no error thrown, assume success
       // Track successful form submission
       trackLeadFormSubmit(formData.program, formData.model)
       
