@@ -25,7 +25,7 @@ export default function Footer() {
           {/* Company Info */}
           <div>
             <div className="mb-2">
-              <Logo size="xlarge" showText={false} className="justify-start" />
+              <Logo size="large" showText={false} className="justify-start" />
             </div>
             <p className="text-slate-400 mb-6 leading-relaxed">
               Motor listrik pertama dengan SuperCharge technology di Indonesia. 
