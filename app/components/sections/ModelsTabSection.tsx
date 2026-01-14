@@ -144,7 +144,7 @@ export default function ModelsTabSection() {
                   <div className="pt-3 md:pt-4">
                     <h3 className={`text-lg md:text-xl font-bold ${
                       activeTab === index ? 'text-electric-blue' : 'text-slate-800'
-                    }`}>
+                    }`} translate="no">
                       {model.name}
                     </h3>
                     <p className="text-sm md:text-base text-slate-500 mt-1">{model.range}</p>
@@ -217,7 +217,7 @@ export default function ModelsTabSection() {
                   <div className={`inline-block ${activeModel.badgeColor || 'bg-electric-blue'} text-white px-4 py-1.5 rounded-full text-sm font-semibold mb-3`}>
                     {activeModel.badge}
                   </div>
-                  <h3 className="text-3xl md:text-4xl font-bold text-slate-800 mb-2">
+                  <h3 className="text-3xl md:text-4xl font-bold text-slate-800 mb-2" translate="no">
                     {activeModel.name}
                   </h3>
                 </div>

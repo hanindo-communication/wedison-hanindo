@@ -18,7 +18,7 @@ export const CONTACT = {
   email: 'support@wedison.co',
   showroomAddress: 'Jl. Arteri Pondok Indah No. 30A-C, Jakarta Selatan',
   showroomHours: {
-    weekday: 'Senin - Jumat: 10:00 - 18:00',
+    weekday: 'Senin - Jumat: 10:00 - 19:00',
     weekend: 'Sabtu - Minggu: 10:00 - 17:00',
   },
 }

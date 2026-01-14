@@ -31,7 +31,7 @@ interface SavingsStory {
 const STORIES: SavingsStory[] = [
   {
     id: '1',
-    name: 'Pak Budi Santoso',
+    name: 'Budi Santoso',
     role: 'Driver Ojek Online',
     location: 'Jakarta Selatan',
     model: 'Wedison EdPower',
@@ -51,7 +51,7 @@ const STORIES: SavingsStory[] = [
   },
   {
     id: '2',
-    name: 'Ibu Sari Dewi',
+    name: 'Sari Dewi',
     role: 'Daily Commuter',
     location: 'Tangerang',
     model: 'Wedison Victory',
@@ -71,7 +71,7 @@ const STORIES: SavingsStory[] = [
   },
   {
     id: '3',
-    name: 'Mas Andi Wijaya',
+    name: 'Andi Wijaya',
     role: 'Kurir Ekspedisi',
     location: 'Bekasi',
     model: 'Wedison EdPower',
@@ -162,11 +162,11 @@ export default function SavingsStoriesSection() {
                       )}
                     </div>
                     <div>
-                      <h3 className="text-xl font-bold text-slate-800">{activeStory.name}</h3>
+                      <h3 className="text-xl font-bold text-slate-800" translate="no">{activeStory.name}</h3>
                       <p className="text-electric-blue font-medium">{activeStory.role}</p>
                       <div className="flex items-center gap-2 text-sm text-slate-500 mt-1">
                         <FiMapPin className="text-xs" />
-                        <span>{activeStory.location}</span>
+                        <span translate="no">{activeStory.location}</span>
                       </div>
                     </div>
                   </div>
@@ -184,7 +184,7 @@ export default function SavingsStoriesSection() {
                         <FiStar key={i} className="text-yellow-400 fill-current" />
                       ))}
                     </div>
-                    <span className="text-sm text-slate-500 bg-slate-100 px-3 py-1 rounded-full">
+                    <span className="text-sm text-slate-500 bg-slate-100 px-3 py-1 rounded-full" translate="no">
                       {activeStory.model}
                     </span>
                     <span className="flex items-center gap-1 text-sm text-slate-500">

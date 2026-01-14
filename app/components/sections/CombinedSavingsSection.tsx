@@ -58,7 +58,7 @@ interface SavingsStory {
 const STORIES: SavingsStory[] = [
   {
     id: '1',
-    name: 'Pak Budi Santoso',
+    name: 'Budi Santoso',
     role: 'Driver Ojek Online',
     location: 'Jakarta Selatan',
     model: 'Wedison EdPower',
@@ -78,7 +78,7 @@ const STORIES: SavingsStory[] = [
   },
   {
     id: '2',
-    name: 'Ibu Sari Dewi',
+    name: 'Sari Dewi',
     role: 'Daily Commuter',
     location: 'Tangerang',
     model: 'Wedison Victory',
@@ -98,7 +98,7 @@ const STORIES: SavingsStory[] = [
   },
   {
     id: '3',
-    name: 'Mas Andi Wijaya',
+    name: 'Andi Wijaya',
     role: 'Kurir Ekspedisi',
     location: 'Bekasi',
     model: 'Wedison EdPower',
@@ -180,7 +180,7 @@ function AnimatedBarChart({
       {/* Wedison Bar */}
       <div>
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 mb-3">
-          <span className="text-base font-semibold text-slate-700">Wedison {selectedModelData.name}</span>
+          <span className="text-base font-semibold text-slate-700" translate="no">Wedison {selectedModelData.name}</span>
           <div className="flex items-center gap-2">
             <motion.span
               key={`electric-${monthlyElectricityKWh}`}
@@ -503,7 +503,7 @@ export default function CombinedSavingsSection({ config }: CombinedSavingsSectio
                         <div className="relative z-10 p-4 pt-16 md:pt-20 text-left">
                           <div className={`text-lg font-bold mb-0.5 ${
                             selectedModel === model.id ? 'text-white' : 'text-white'
-                          }`}>
+                          }`} translate="no">
                             {model.name}
                           </div>
                           <div className={`text-sm font-medium flex items-center gap-1 ${
@@ -782,11 +782,11 @@ export default function CombinedSavingsSection({ config }: CombinedSavingsSectio
                           )}
                             </div>
                             <div>
-                              <h4 className="text-xl font-bold text-slate-800">{activeStory.name}</h4>
+                              <h4 className="text-xl font-bold text-slate-800" translate="no">{activeStory.name}</h4>
                               <p className="text-electric-blue font-medium">{activeStory.role}</p>
                               <div className="flex items-center gap-2 text-sm text-slate-500 mt-1">
                                 <FiMapPin className="text-xs" />
-                                <span>{activeStory.location}</span>
+                                <span translate="no">{activeStory.location}</span>
                               </div>
                             </div>
                           </div>
@@ -804,7 +804,7 @@ export default function CombinedSavingsSection({ config }: CombinedSavingsSectio
                                 <FiStar key={i} className="text-yellow-400 fill-current" />
                               ))}
                             </div>
-                            <span className="text-sm text-slate-500 bg-slate-100 px-3 py-1 rounded-full">
+                            <span className="text-sm text-slate-500 bg-slate-100 px-3 py-1 rounded-full" translate="no">
                               {activeStory.model}
                             </span>
                             <span className="flex items-center gap-1 text-sm text-slate-500">

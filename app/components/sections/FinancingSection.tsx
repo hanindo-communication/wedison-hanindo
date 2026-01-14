@@ -361,7 +361,7 @@ export default function FinancingSection() {
                         
                         {/* Content */}
                         <div className="relative z-10 p-4 pt-14 md:pt-16 text-left">
-                          <div className="text-lg font-bold text-white mb-0.5">
+                          <div className="text-lg font-bold text-white mb-0.5" translate="no">
                             {model.name}
                           </div>
                           <div className={`text-sm font-medium ${
@@ -617,7 +617,7 @@ export default function FinancingSection() {
                         
                         {/* Content */}
                         <div className="relative z-10 p-4 pt-14 md:pt-16 text-left">
-                          <div className="text-lg font-bold text-white mb-0.5">
+                          <div className="text-lg font-bold text-white mb-0.5" translate="no">
                             {model.name}
                           </div>
                           <div className={`text-sm font-medium ${
@@ -701,7 +701,7 @@ export default function FinancingSection() {
                 <div className="text-3xl sm:text-4xl md:text-5xl font-bold mb-2">
                   Rp {cashData?.finalPrice.toLocaleString('id-ID') || '-'}
                 </div>
-                <p className="text-white/80 text-sm sm:text-base">
+                <p className="text-white/80 text-sm sm:text-base" translate="no">
                   {selectedModel.name} {selectedVariant === 'extended' && selectedModel.hasExtended ? 'Extended Range' : ''}
                 </p>
               </div>

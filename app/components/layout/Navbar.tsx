@@ -53,10 +53,11 @@ export default function Navbar() {
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
             <Logo 
-              href="#"
-              className={`h-8 md:h-10 w-auto transition-all ${
+              href="https://wedison.co"
+              className={`transition-all ${
                 isScrolled ? '' : 'brightness-0 invert'
               }`}
+              size="medium"
             />
 
             {/* Desktop Navigation */}

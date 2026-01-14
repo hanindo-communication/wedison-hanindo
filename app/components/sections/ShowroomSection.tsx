@@ -83,7 +83,7 @@ export default function ShowroomSection() {
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-slate-800 mb-1">Alamat</h3>
-                  <p className="text-slate-600">{CONTACT.showroomAddress}</p>
+                  <p className="text-slate-600" translate="no">{CONTACT.showroomAddress}</p>
                   <a
                     href={googleMapsUrl}
                     target="_blank"

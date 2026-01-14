@@ -6,32 +6,23 @@ import Link from 'next/link'
 
 interface LogoProps {
   className?: string
-  size?: 'small' | 'medium' | 'large' | 'xlarge'
-  showText?: boolean
+  size?: 'small' | 'medium' | 'large'
   href?: string
   onClick?: () => void
 }
 
-export default function Logo({ className = '', size = 'medium', showText = false, href = '/', onClick }: LogoProps) {
+export default function Logo({ className = '', size = 'medium', href = '/', onClick }: LogoProps) {
   const [imageError, setImageError] = useState(false)
 
-  const sizeClasses = {
-    small: 'h-10 w-10',
-    medium: 'h-16 w-16',
-    large: 'h-24 w-24',
-    xlarge: 'h-32 w-32',
+  // Height-based sizing for landscape logo (width auto-scales to preserve aspect ratio)
+  const sizeConfig = {
+    small: { height: 28, width: 120 },   // Mobile navbar
+    medium: { height: 36, width: 150 },  // Desktop navbar
+    large: { height: 48, width: 200 },   // Footer
   }
 
-  const textSizes = {
-    small: 'text-lg',
-    medium: 'text-xl',
-    large: 'text-2xl',
-    xlarge: 'text-3xl',
-  }
+  const { height, width } = sizeConfig[size]
 
-  // Default to center alignment unless overridden by className
-  const defaultJustify = className.includes('justify') ? '' : 'justify-center'
-  
   const handleClick = (e: React.MouseEvent) => {
     if (href === '#' || onClick) {
       e.preventDefault()
@@ -43,52 +34,39 @@ export default function Logo({ className = '', size = 'medium', showText = false
     }
   }
 
-  
   const logoContent = (
-    <>
-      {/* Logo Image with fallback */}
-      <div className={`relative ${sizeClasses[size]} flex-shrink-0 flex items-center justify-center overflow-hidden`}>
-        {!imageError ? (
-          <div className="relative w-full h-full">
-            <Image
-              src="/logo/logo.png"
-              alt="Wedison Logo"
-              fill
-              sizes="(max-width: 768px) 40px, 64px"
-              className={`object-contain ${className.includes('brightness-0') ? 'brightness-0' : ''} ${className.includes('invert') ? 'invert' : ''}`}
-              onError={() => {
-                setImageError(true)
-              }}
-              priority
-              unoptimized
-            />
-          </div>
-        ) : null}
-      </div>
-      
-      {/* Logo Text */}
-      {showText && (
-        <span className={`font-bold ${textSizes[size]} text-secondary-teal`}>
-          WEDISON
-        </span>
+    <div className="flex-shrink-0">
+      {!imageError ? (
+        <Image
+          src="/logo/logo-wedison.png"
+          alt="Wedison Logo"
+          width={width}
+          height={height}
+          className={`h-auto w-auto max-h-full object-contain ${className}`}
+          style={{ height: `${height}px`, width: 'auto' }}
+          onError={() => setImageError(true)}
+          priority
+        />
+      ) : (
+        <span className="font-bold text-xl text-secondary-teal">WEDISON</span>
       )}
-    </>
+    </div>
   )
-  
+
   if (href === '#' || onClick) {
     return (
       <button
         onClick={handleClick}
-        className={`flex items-center ${defaultJustify} ${className} cursor-pointer`}
+        className="flex items-center cursor-pointer"
         aria-label="Scroll to top"
       >
         {logoContent}
       </button>
     )
   }
-  
+
   return (
-    <Link href={href} className={`flex items-center ${defaultJustify} ${className}`}>
+    <Link href={href} className="flex items-center">
       {logoContent}
     </Link>
   )
