@@ -5,11 +5,13 @@ export const runtime = 'edge'
 
 const TIKTOK_PIXEL_ID = 'D5M7DLBC77U27TJUP94G'
 const TIKTOK_EVENTS_API_URL = 'https://business-api.tiktok.com/open_api/v1.3/event/track/'
+const TIKTOK_TEST_EVENT_CODE = 'TEST37883' // Test event code for testing
 
 interface TikTokEventData {
   event: string
   event_time?: number
   event_id?: string
+  test_event_code?: string // Optional test event code
   user?: {
     ip?: string
     user_agent?: string
@@ -30,6 +32,7 @@ interface TikTokEventData {
 interface TikTokEventsPayload {
   event_source: string
   event_source_id: string
+  test_event_code?: string // Test event code for testing
   data: Array<{
     event: string
     event_time: number
@@ -75,10 +78,15 @@ export async function POST(request: Request) {
     const userAgent = request.headers.get('user-agent') || 'unknown'
     const url = request.headers.get('referer') || 'unknown'
 
+    // Check if test mode is enabled via environment variable or request
+    const isTestMode = process.env.TIKTOK_TEST_MODE === 'true' || eventData.test_event_code !== undefined
+    const testEventCode = eventData.test_event_code || (isTestMode ? TIKTOK_TEST_EVENT_CODE : undefined)
+
     // Build TikTok Events API payload
     const payload: TikTokEventsPayload = {
       event_source: 'web',
       event_source_id: TIKTOK_PIXEL_ID,
+      ...(testEventCode && { test_event_code: testEventCode }),
       data: [
         {
           event: eventData.event,
@@ -129,6 +137,8 @@ export async function POST(request: Request) {
     return NextResponse.json({ 
       success: true, 
       message: 'Event sent to TikTok Events API',
+      test_mode: isTestMode,
+      test_event_code: testEventCode,
       data: responseData 
     })
 

@@ -19,6 +19,9 @@ export const FB_PIXEL_ID = process.env.NEXT_PUBLIC_FB_PIXEL_ID || '' // Format: 
 // TikTok Pixel ID
 export const TIKTOK_PIXEL_ID = process.env.NEXT_PUBLIC_TIKTOK_PIXEL_ID || 'D5M7DLBC77U27TJUP94G'
 
+// TikTok Test Event Code (for testing Events API)
+export const TIKTOK_TEST_EVENT_CODE = 'TEST37883'
+
 export const pageview = (url: string) => {
   if (typeof window !== 'undefined' && (window as any).dataLayer) {
     (window as any).dataLayer.push({
@@ -66,7 +69,8 @@ export const trackTikTokEventAPI = async (
     email?: string
     phone?: string
     external_id?: string
-  }
+  },
+  testEventCode?: string // Optional test event code for testing
 ) => {
   if (typeof window === 'undefined') return
 
@@ -75,6 +79,7 @@ export const trackTikTokEventAPI = async (
       event,
       event_time: Math.floor(Date.now() / 1000),
       event_id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+      ...(testEventCode && { test_event_code: testEventCode }),
       user: user || {},
       properties: {
         ...properties,
@@ -99,7 +104,7 @@ export const trackTikTokEventAPI = async (
 }
 
 // Predefined event trackers
-export const trackWhatsAppClick = (source: string) => {
+export const trackWhatsAppClick = (source: string, testMode: boolean = false) => {
   trackEvent('click', 'WhatsApp', source)
   
   // Track to TikTok as Lead event (client-side pixel)
@@ -112,7 +117,7 @@ export const trackWhatsAppClick = (source: string) => {
   trackTikTokEventAPI('ClickButton', {
     content_type: 'whatsapp_click',
     content_name: source,
-  })
+  }, undefined, testMode ? TIKTOK_TEST_EVENT_CODE : undefined)
 }
 
 export const trackTestDriveClick = () => {
@@ -127,7 +132,7 @@ export const trackSectionView = (sectionName: string) => {
   trackEvent('view', 'Section', sectionName)
 }
 
-export const trackLeadFormSubmit = (program: string, model?: string) => {
+export const trackLeadFormSubmit = (program: string, model?: string, testMode: boolean = false) => {
   trackEvent('submit', 'LeadForm', program, model ? 1 : 0)
   
   // Also push detailed lead data for GTM
@@ -151,16 +156,16 @@ export const trackLeadFormSubmit = (program: string, model?: string) => {
     content_type: 'form_submission',
     content_name: program,
     ...(model && { content_id: model }),
-  })
+  }, undefined, testMode ? TIKTOK_TEST_EVENT_CODE : undefined)
 }
 
 // Track page view via Events API (ViewContent event)
-export const trackPageViewAPI = (url?: string) => {
+export const trackPageViewAPI = (url?: string, testMode: boolean = false) => {
   if (typeof window === 'undefined') return
 
   trackTikTokEventAPI('ViewContent', {
     content_type: 'page',
     content_name: document.title,
     url: url || window.location.href,
-  })
+  }, undefined, testMode ? TIKTOK_TEST_EVENT_CODE : undefined)
 }

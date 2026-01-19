@@ -9,6 +9,7 @@ TikTok Events API memungkinkan server-side event tracking yang lebih reliable di
 - **Pixel ID:** `D5M7DLBC77U27TJUP94G`
 - **Access Token:** `64ac2424439fdb5e9650453f09da0744d2af4569`
 - **API Endpoint:** `https://business-api.tiktok.com/open_api/v1.3/event/track/`
+- **Test Event Code:** `TEST37883` (untuk testing Events API)
 
 ## Environment Variables Setup
 
@@ -19,6 +20,9 @@ Create atau update file `.env.local` di root project:
 ```env
 # TikTok Events API Access Token
 TIKTOK_EVENTS_API_TOKEN=64ac2424439fdb5e9650453f09da0744d2af4569
+
+# TikTok Test Mode (optional - set to 'true' to enable test event code for all events)
+TIKTOK_TEST_MODE=false
 ```
 
 **Important:** 
@@ -76,6 +80,7 @@ POST /api/tiktok-events
   "event": "ViewContent" | "ClickButton" | "Lead",
   "event_time": 1234567890,
   "event_id": "unique-event-id",
+  "test_event_code": "TEST37883",
   "user": {
     "email": "hashed_email",
     "phone": "hashed_phone",
@@ -92,14 +97,78 @@ POST /api/tiktok-events
 }
 ```
 
+**Note:** `test_event_code` adalah optional. Jika disertakan, event akan muncul di TikTok Event Manager sebagai test event untuk verifikasi.
+
 ### Response
 ```json
 {
   "success": true,
   "message": "Event sent to TikTok Events API",
+  "test_mode": false,
+  "test_event_code": "TEST37883",
   "data": { ... }
 }
 ```
+
+## Testing with Test Event Code
+
+### Test Event Code: `TEST37883`
+
+Test event code memungkinkan Anda test Events API dan melihat events muncul di TikTok Event Manager untuk verifikasi.
+
+### Cara Menggunakan Test Event Code
+
+#### Option 1: Via Environment Variable (Global Test Mode)
+Set `TIKTOK_TEST_MODE=true` di environment variables untuk enable test mode untuk semua events.
+
+**Local Development (.env.local):**
+```env
+TIKTOK_TEST_MODE=true
+```
+
+**Cloudflare Pages:**
+- Add environment variable: `TIKTOK_TEST_MODE` = `true`
+- Semua events akan otomatis include test event code
+
+#### Option 2: Via Function Parameter (Per-Event)
+Pass `testMode: true` ke tracking functions:
+
+```typescript
+// Test WhatsApp click
+trackWhatsAppClick('navbar', true)
+
+// Test form submission
+trackLeadFormSubmit('cash', 'edpower', true)
+
+// Test page view
+trackPageViewAPI(undefined, true)
+```
+
+#### Option 3: Via API Request (Direct)
+Include `test_event_code` di request body:
+
+```json
+{
+  "event": "ViewContent",
+  "test_event_code": "TEST37883",
+  "properties": {
+    "content_type": "page",
+    "content_name": "Test Page"
+  }
+}
+```
+
+### Verify Test Events
+
+1. **Send test event** dengan test event code
+2. **Buka TikTok Event Manager** → Events → Test Events
+3. **Events dengan test code** akan muncul di section "Test Events"
+4. **Verify** bahwa event structure dan parameters sudah benar
+
+**Important:** 
+- Test events hanya muncul di "Test Events" section, tidak di "Recent Activities"
+- Test events tidak akan mempengaruhi campaign optimization atau reporting
+- Setelah testing selesai, disable test mode untuk production
 
 ## Testing
 
@@ -109,11 +178,24 @@ POST /api/tiktok-events
 # Start dev server
 npm run dev
 
-# Test in another terminal
+# Test in another terminal (normal mode)
 curl -X POST http://localhost:3000/api/tiktok-events \
   -H "Content-Type: application/json" \
   -d '{
     "event": "ViewContent",
+    "properties": {
+      "content_type": "page",
+      "content_name": "Test Page",
+      "url": "http://localhost:3000"
+    }
+  }'
+
+# Test with test event code
+curl -X POST http://localhost:3000/api/tiktok-events \
+  -H "Content-Type: application/json" \
+  -d '{
+    "event": "ViewContent",
+    "test_event_code": "TEST37883",
     "properties": {
       "content_type": "page",
       "content_name": "Test Page",
