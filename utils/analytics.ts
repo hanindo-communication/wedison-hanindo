@@ -55,8 +55,8 @@ export const trackTikTokEvent = (eventName: string, parameters?: Record<string, 
 export const trackWhatsAppClick = (source: string) => {
   trackEvent('click', 'WhatsApp', source)
   
-  // Track to TikTok as Contact event (for contact/communication actions like WhatsApp clicks)
-  trackTikTokEvent('Contact', {
+  // Track to TikTok as Lead event (WhatsApp clicks are considered as leads)
+  trackTikTokEvent('Lead', {
     content_type: 'whatsapp_click',
     content_name: source,
   })
@@ -86,7 +86,7 @@ export const trackLeadFormSubmit = (program: string, model?: string) => {
     })
   }
   
-  // Track to TikTok as SubmitApplication event (using Event Builder in TikTok Event Manager)
+  // Track to TikTok as SubmitApplication event (for form submissions)
   trackTikTokEvent('SubmitApplication', {
     content_type: 'form_submission',
     content_name: program,
