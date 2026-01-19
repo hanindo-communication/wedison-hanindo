@@ -40,7 +40,7 @@ export const trackEvent = (action: string, category: string, label?: string, val
   }
 }
 
-// TikTok Pixel tracking functions
+// TikTok Pixel tracking functions (client-side)
 export const trackTikTokEvent = (eventName: string, parameters?: Record<string, any>) => {
   if (typeof window !== 'undefined' && (window as any).ttq) {
     try {
@@ -51,12 +51,65 @@ export const trackTikTokEvent = (eventName: string, parameters?: Record<string, 
   }
 }
 
+// TikTok Events API tracking functions (server-side via API route)
+export const trackTikTokEventAPI = async (
+  event: string,
+  properties?: {
+    content_id?: string
+    content_type?: string
+    content_name?: string
+    value?: number
+    currency?: string
+    url?: string
+  },
+  user?: {
+    email?: string
+    phone?: string
+    external_id?: string
+  }
+) => {
+  if (typeof window === 'undefined') return
+
+  try {
+    const eventData = {
+      event,
+      event_time: Math.floor(Date.now() / 1000),
+      event_id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+      user: user || {},
+      properties: {
+        ...properties,
+        url: properties?.url || window.location.href,
+      },
+    }
+
+    const response = await fetch('/api/tiktok-events', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(eventData),
+    })
+
+    if (!response.ok) {
+      console.error('TikTok Events API error:', await response.text())
+    }
+  } catch (error) {
+    console.error('TikTok Events API tracking error:', error)
+  }
+}
+
 // Predefined event trackers
 export const trackWhatsAppClick = (source: string) => {
   trackEvent('click', 'WhatsApp', source)
   
-  // Track to TikTok as Lead event (WhatsApp clicks are considered as leads)
+  // Track to TikTok as Lead event (client-side pixel)
   trackTikTokEvent('Lead', {
+    content_type: 'whatsapp_click',
+    content_name: source,
+  })
+
+  // Also track via Events API as ClickButton event (server-side)
+  trackTikTokEventAPI('ClickButton', {
     content_type: 'whatsapp_click',
     content_name: source,
   })
@@ -86,10 +139,28 @@ export const trackLeadFormSubmit = (program: string, model?: string) => {
     })
   }
   
-  // Track to TikTok as SubmitApplication event (for form submissions)
+  // Track to TikTok as SubmitApplication event (client-side pixel)
   trackTikTokEvent('SubmitApplication', {
     content_type: 'form_submission',
     content_name: program,
     ...(model && { model: model }),
+  })
+
+  // Also track via Events API as Lead event (server-side)
+  trackTikTokEventAPI('Lead', {
+    content_type: 'form_submission',
+    content_name: program,
+    ...(model && { content_id: model }),
+  })
+}
+
+// Track page view via Events API (ViewContent event)
+export const trackPageViewAPI = (url?: string) => {
+  if (typeof window === 'undefined') return
+
+  trackTikTokEventAPI('ViewContent', {
+    content_type: 'page',
+    content_name: document.title,
+    url: url || window.location.href,
   })
 }

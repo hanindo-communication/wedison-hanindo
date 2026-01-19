@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import TikTokPageView from './components/analytics/TikTokPageView'
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -126,6 +127,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         </noscript>
         {/* End Google Tag Manager (noscript) */}
         
+        <TikTokPageView />
         {children}
       </body>
     </html>
