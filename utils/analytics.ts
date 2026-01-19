@@ -8,6 +8,8 @@
 //
 // READ MORE: docs/GTM_SETUP_GUIDE.md
 
+import { MODEL_SPECS } from './modelSpecs'
+
 export const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || 'GTM-NRFXB3GJ'
 
 // Optional: Google Analytics 4 Measurement ID
@@ -51,14 +53,46 @@ export const trackTikTokEvent = (eventName: string, parameters?: Record<string, 
   }
 }
 
+// Helper function to extract numeric value from price string (e.g., "Rp 45,900,000" -> 45900000)
+const extractPriceValue = (priceString: string): number | undefined => {
+  if (!priceString) return undefined
+  // Remove "Rp", spaces, and commas, then parse as number
+  const numericString = priceString.replace(/Rp\s?/gi, '').replace(/,/g, '').trim()
+  const value = parseFloat(numericString)
+  return isNaN(value) ? undefined : value
+}
+
+// Helper function to format TikTok contents array
+const formatTikTokContents = (
+  contentId?: string,
+  contentType: string = 'product',
+  contentName: string
+): Array<{
+  content_id: string
+  content_type: string
+  content_name: string
+}> => {
+  return [
+    {
+      content_id: contentId || contentName.toLowerCase().replace(/\s+/g, '-'),
+      content_type: contentType,
+      content_name: contentName,
+    },
+  ]
+}
+
 // Predefined event trackers
 export const trackWhatsAppClick = (source: string) => {
   trackEvent('click', 'WhatsApp', source)
   
-  // Track to TikTok as Lead event (for lead tracking)
+  // Track to TikTok as Lead event with proper format
   trackTikTokEvent('Lead', {
-    content_type: 'whatsapp_click',
-    content_name: source,
+    contents: formatTikTokContents(
+      `whatsapp-${source}`,
+      'product',
+      `WhatsApp Contact - ${source}`
+    ),
+    currency: 'IDR',
   })
 }
 
@@ -86,10 +120,28 @@ export const trackLeadFormSubmit = (program: string, model?: string) => {
     })
   }
   
-  // Track to TikTok as SubmitApplication event (for form submission tracking)
-  trackTikTokEvent('SubmitApplication', {
-    content_type: 'form_submission',
-    content_name: program,
-    ...(model && { model: model }),
-  })
+  // Track to TikTok as SubmitApplication event with proper format
+  const modelData = model ? MODEL_SPECS.find((m) => m.id === model) : null
+  const contentName = modelData 
+    ? `Form Submission - ${modelData.name} (${program})`
+    : `Form Submission - ${program}`
+  
+  const eventParams: Record<string, any> = {
+    contents: formatTikTokContents(
+      model || `form-${program}`,
+      'product',
+      contentName
+    ),
+    currency: 'IDR',
+  }
+  
+  // Add value if model is selected (extract from price string)
+  if (modelData && modelData.price) {
+    const priceValue = extractPriceValue(modelData.price)
+    if (priceValue) {
+      eventParams.value = priceValue
+    }
+  }
+  
+  trackTikTokEvent('SubmitApplication', eventParams)
 }
