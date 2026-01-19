@@ -16,6 +16,9 @@ export const GA4_ID = process.env.NEXT_PUBLIC_GA4_ID || '' // Format: G-XXXXXXXX
 // Optional: Facebook Pixel ID
 export const FB_PIXEL_ID = process.env.NEXT_PUBLIC_FB_PIXEL_ID || '' // Format: 123456789012345
 
+// TikTok Pixel ID
+export const TIKTOK_PIXEL_ID = process.env.NEXT_PUBLIC_TIKTOK_PIXEL_ID || 'D5M7DLBC77U27TJUP94G'
+
 export const pageview = (url: string) => {
   if (typeof window !== 'undefined' && (window as any).dataLayer) {
     (window as any).dataLayer.push({
@@ -37,9 +40,26 @@ export const trackEvent = (action: string, category: string, label?: string, val
   }
 }
 
+// TikTok Pixel tracking functions
+export const trackTikTokEvent = (eventName: string, parameters?: Record<string, any>) => {
+  if (typeof window !== 'undefined' && (window as any).ttq) {
+    try {
+      (window as any).ttq.track(eventName, parameters || {})
+    } catch (error) {
+      console.error('TikTok Pixel tracking error:', error)
+    }
+  }
+}
+
 // Predefined event trackers
 export const trackWhatsAppClick = (source: string) => {
   trackEvent('click', 'WhatsApp', source)
+  
+  // Track to TikTok as Lead event (for lead tracking)
+  trackTikTokEvent('Lead', {
+    content_type: 'whatsapp_click',
+    content_name: source,
+  })
 }
 
 export const trackTestDriveClick = () => {
@@ -65,4 +85,11 @@ export const trackLeadFormSubmit = (program: string, model?: string) => {
       leadModel: model || '',
     })
   }
+  
+  // Track to TikTok as SubmitApplication event (for form submission tracking)
+  trackTikTokEvent('SubmitApplication', {
+    content_type: 'form_submission',
+    content_name: program,
+    ...(model && { model: model }),
+  })
 }
